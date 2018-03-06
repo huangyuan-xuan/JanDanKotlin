@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">JanDanKotlin</string>
+    <string name="news">新鲜事</string>
+    <string name="popular">流行</string>
+    <string name="bored_pics">无聊图</string>
+    <string name="meizi">妹子图</string>
+    <string name="joke">段子</string>
+</resources>
