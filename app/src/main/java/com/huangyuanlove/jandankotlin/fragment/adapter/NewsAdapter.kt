@@ -1,6 +1,7 @@
 package com.huangyuanlove.jandankotlin.fragment.adapter
 
 import android.app.Activity
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,52 +17,37 @@ import kotlinx.android.synthetic.main.item_news.view.*
  * @Describe
  * Created by huangyuan on 2018/3/6.
  */
-class NewsAdapter(var context: Activity, var data: List<News> ,var inflater: LayoutInflater) : BaseAdapter() {
-
+class NewsAdapter(var context: Activity, var data: List<News>) : RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
+    val inflater: LayoutInflater
 
     init {
         inflater = LayoutInflater.from(context)
     }
 
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        var newsBean = data.get(position)
-        var viewHolder: ViewHolder?
-        var view:View
-        if (convertView == null) {
-            view = inflater.inflate(R.layout.item_news,parent,false)
-            viewHolder = ViewHolder(view)
-            view.tag = viewHolder
-
-        } else {
-            view = convertView
-            viewHolder = convertView.tag as ViewHolder
-        }
-
-        viewHolder.title.text = newsBean.title
-        viewHolder.author.text = newsBean.author.name
-        viewHolder.time.text = newsBean.date
-        viewHolder.commentCount.text = "${newsBean.comment_count}评论"
-        Glide.with(view).load(newsBean.custom_fields.thumb_c?.get(0)).into(viewHolder.img)
-
-
-
-        return view
-
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        var news  = data[position]
+        holder.commentCount.text = "${news.comment_count}评论"
+        holder.time.text = news.date
+        holder.author.text = news.author.name
+        holder.title.text = news.title
+        Glide.with(holder.view).load(news.custom_fields.thumb_c[0]).into(holder.img)
     }
 
-    override fun getItem(position: Int): Any {
-        return data?.get(position)
-    }
-
-    override fun getItemId(position: Int): Long {
-        return position.toLong()
-    }
-
-    override fun getCount(): Int {
+    override fun getItemCount(): Int {
         return data.size
     }
 
-    class ViewHolder(var view: View) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+            val view = inflater.inflate(R.layout.item_news,parent,false)
+            return ViewHolder(view)
+
+    }
+
+
+
+
+
+    class ViewHolder(var view: View) :RecyclerView.ViewHolder(view){
         var title = view.findViewById<TextView>(R.id.news_title)
         var author = view.findViewById<TextView>(R.id.news_auth)
         var commentCount = view.findViewById<TextView>(R.id.news_comment_count)
