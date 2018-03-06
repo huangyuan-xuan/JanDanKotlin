@@ -6,12 +6,11 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.DefaultItemAnimator
+import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AbsListView
 import com.huangyuanlove.jandankotlin.JanDanApplication
 import com.huangyuanlove.jandankotlin.R
 import com.huangyuanlove.jandankotlin.RecyclerViewScrollListener
@@ -20,7 +19,6 @@ import com.huangyuanlove.jandankotlin.domain.RequestResultBean
 import com.huangyuanlove.jandankotlin.fragment.adapter.NewsAdapter
 import com.huangyuanlove.jandankotlin.httpservice.NewsInterface
 import kotlinx.android.synthetic.main.fragment_news.*
-import org.jetbrains.anko.sdk25.coroutines.onScrollListener
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -53,7 +51,7 @@ class NewsFragment : Fragment() {
         var linearLayoutManager = LinearLayoutManager(context)
         recycler_view.layoutManager = linearLayoutManager
         recycler_view.itemAnimator = DefaultItemAnimator()
-
+        recycler_view.addItemDecoration(DividerItemDecoration(context,DividerItemDecoration.VERTICAL))
         adapter = NewsAdapter(activity as Activity, newsz)
 
         recycler_view.adapter = adapter
