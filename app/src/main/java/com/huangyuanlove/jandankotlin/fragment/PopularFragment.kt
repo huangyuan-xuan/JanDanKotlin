@@ -24,8 +24,8 @@ class PopularFragment :Fragment(){
     }
 
     private fun initView(){
-//        swipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(activity as Context,R.color.material_light_green_a700))
-//        swipeRefreshLayout.setOnRefreshListener {  }
+        swipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(activity as Context,R.color.material_light_green_a700))
+        swipeRefreshLayout.setOnRefreshListener {  }
     }
     private fun loadData(isLoadMore:Boolean){
         if (isLoadMore){

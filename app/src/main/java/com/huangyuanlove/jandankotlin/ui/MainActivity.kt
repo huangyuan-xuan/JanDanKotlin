@@ -29,11 +29,11 @@ class MainActivity : AppCompatActivity() {
     private fun initView() {
         val fragments = ArrayList<Fragment>(5)
         fragments.add(NewsFragment())
-        fragments.add(PopularFragment())
+//        fragments.add(PopularFragment())
         fragments.add(BoredPicsFragment())
         fragments.add(MeiZiFragment())
         fragments.add(JokeFragment())
-        val nameList = arrayListOf(R.string.news, R.string.popular, R.string.bored_pics, R.string.meizi, R.string.joke).map { Int -> getString(Int) }
+        val nameList = arrayListOf(R.string.news, R.string.bored_pics, R.string.meizi, R.string.joke).map { Int -> getString(Int) }
         viewPager.adapter = ContentPagerAdapter(fragments, nameList, supportFragmentManager)
         viewPager.offscreenPageLimit = 2
         tabLayout.setupWithViewPager(viewPager)

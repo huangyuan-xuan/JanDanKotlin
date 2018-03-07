@@ -48,7 +48,7 @@ class NewsFragment : Fragment() {
     private fun initView() {
         swipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(activity as Context, R.color.material_light_green_a700))
         swipeRefreshLayout.setOnRefreshListener { loadData(false)}
-        var linearLayoutManager = LinearLayoutManager(context)
+        val linearLayoutManager = LinearLayoutManager(context)
         recycler_view.layoutManager = linearLayoutManager
         recycler_view.itemAnimator = DefaultItemAnimator()
         recycler_view.addItemDecoration(DividerItemDecoration(context,DividerItemDecoration.VERTICAL))

@@ -300,6 +300,9 @@
     <color name="material_blue_grey_900">#263238</color>
 
     <!-- Black and White(黑色和白色) -->
-    <color name="material_black">#000000</color>
+    <color name="material_black_333">#333333</color>
+    <color name="material_black_666">#666666</color>
+    <color name="material_black_999">#999999</color>
+    <color name="material_black_50">#000000</color>
     <color name="material_white">#FFFFFF</color>
 </resources>

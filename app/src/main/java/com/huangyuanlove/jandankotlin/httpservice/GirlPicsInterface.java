@@ -1,6 +1,9 @@
 package com.huangyuanlove.jandankotlin.httpservice;
 
 
+import com.huangyuanlove.jandankotlin.domain.MeiZi;
+import com.huangyuanlove.jandankotlin.domain.RequestResultBean;
+
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -10,7 +13,6 @@ import retrofit2.http.Query;
  */
 
 public interface GirlPicsInterface {
-//    http://i.jandan.net/?oxwlxojflwblxbsapi=jandan.get_ooxx_comments&page=1
-//    @GET("?oxwlxojflwblxbsapi=jandan.get_ooxx_comments")
-//    Call<RequestResultBean<GirlPicsVO>> getGirlPics(@Query("page") int pageNumber);
+    @GET("?oxwlxojflwblxbsapi=jandan.get_ooxx_comments")
+    Call<RequestResultBean<MeiZi>> getGirlPics(@Query("page") int pageNumber);
 }
