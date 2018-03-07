@@ -70,7 +70,7 @@
                 android:layout_marginTop="10dp"
                 android:background="@color/material_black_666" />
 
-            <WebView
+            <com.huangyuanlove.jandankotlin.CustomWebView
                 tools:text="内容"
                 android:id="@+id/news_content"
                 android:layout_width="match_parent"
