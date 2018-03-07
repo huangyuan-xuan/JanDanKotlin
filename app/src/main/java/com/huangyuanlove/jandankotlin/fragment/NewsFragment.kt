@@ -2,6 +2,7 @@ package com.huangyuanlove.jandankotlin.fragment
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
@@ -17,7 +18,9 @@ import com.huangyuanlove.jandankotlin.RecyclerViewScrollListener
 import com.huangyuanlove.jandankotlin.domain.News
 import com.huangyuanlove.jandankotlin.domain.RequestResultBean
 import com.huangyuanlove.jandankotlin.fragment.adapter.NewsAdapter
+import com.huangyuanlove.jandankotlin.fragment.adapter.NewsAdapter.OnItemClickListener
 import com.huangyuanlove.jandankotlin.httpservice.NewsInterface
+import com.huangyuanlove.jandankotlin.ui.NewsDetailActivity
 import kotlinx.android.synthetic.main.fragment_news.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -53,15 +56,23 @@ class NewsFragment : Fragment() {
         recycler_view.itemAnimator = DefaultItemAnimator()
         recycler_view.addItemDecoration(DividerItemDecoration(context,DividerItemDecoration.VERTICAL))
         adapter = NewsAdapter(activity as Activity, newsz)
+        adapter.onItemClickListener = object : OnItemClickListener{
+            override fun onItemClick(news:News) {
+                val intent  = Intent(context,NewsDetailActivity::class.java)
+                intent.putExtra("news",news)
+                startActivity(intent)
+            }
 
+        }
         recycler_view.adapter = adapter
 
         recycler_view.addOnScrollListener(object : RecyclerViewScrollListener(linearLayoutManager) {
             override fun onLoadMore() {
                 loadData(true)
             }
-
         })
+
+
 
     }
 
