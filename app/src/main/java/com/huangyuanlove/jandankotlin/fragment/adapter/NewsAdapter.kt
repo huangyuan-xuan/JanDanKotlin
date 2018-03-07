@@ -12,6 +12,8 @@ import com.bumptech.glide.Glide
 import com.huangyuanlove.jandankotlin.R
 import com.huangyuanlove.jandankotlin.domain.News
 import kotlinx.android.synthetic.main.item_news.view.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * @Describe
@@ -25,9 +27,20 @@ class NewsAdapter(var context: Activity, var data: List<News>) : RecyclerView.Ad
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        var news  = data[position]
+        val news = data[position]
         holder.commentCount.text = "${news.comment_count}评论"
-        holder.time.text = news.date
+        val currentCalendar = Calendar.getInstance()
+        if (currentCalendar.get(Calendar.YEAR) == news.date.get(Calendar.YEAR)) {
+            if(currentCalendar.get(Calendar.DAY_OF_YEAR) ==news.date.get(Calendar.DAY_OF_YEAR) ){
+                holder.time.text = SimpleDateFormat("HH:mm").format(news.date.timeInMillis)
+            }else{
+                holder.time.text = SimpleDateFormat("MM-dd HH:mm").format(news.date.timeInMillis)
+            }
+        } else {
+            holder.time.text = SimpleDateFormat("yyyy-MM-dd HH:mm").format(news.date.timeInMillis)
+        }
+
+//        holder.time.text = news.date
         holder.author.text = news.author.name
         holder.title.text = news.title
         Glide.with(holder.view).load(news.custom_fields.thumb_c[0]).into(holder.img)
@@ -38,16 +51,13 @@ class NewsAdapter(var context: Activity, var data: List<News>) : RecyclerView.Ad
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-            val view = inflater.inflate(R.layout.item_news,parent,false)
-            return ViewHolder(view)
+        val view = inflater.inflate(R.layout.item_news, parent, false)
+        return ViewHolder(view)
 
     }
 
 
-
-
-
-    class ViewHolder(var view: View) :RecyclerView.ViewHolder(view){
+    class ViewHolder(var view: View) : RecyclerView.ViewHolder(view) {
         var title = view.findViewById<TextView>(R.id.news_title)
         var author = view.findViewById<TextView>(R.id.news_auth)
         var commentCount = view.findViewById<TextView>(R.id.news_comment_count)

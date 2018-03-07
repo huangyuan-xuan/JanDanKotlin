@@ -8,6 +8,8 @@ import com.huangyuanlove.jandankotlin.R
 import com.huangyuanlove.jandankotlin.ui.adapter.ContentPagerAdapter
 import com.huangyuanlove.jandankotlin.fragment.*
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 
 
 /**
