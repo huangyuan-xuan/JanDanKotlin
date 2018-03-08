@@ -12,15 +12,16 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import com.huangyuanlove.jandankotlin.JanDanApplication
 import com.huangyuanlove.jandankotlin.R
 import com.huangyuanlove.jandankotlin.RecyclerViewScrollListener
 import com.huangyuanlove.jandankotlin.domain.News
 import com.huangyuanlove.jandankotlin.domain.RequestResultBean
 import com.huangyuanlove.jandankotlin.fragment.adapter.NewsAdapter
-import com.huangyuanlove.jandankotlin.fragment.adapter.NewsAdapter.OnItemClickListener
 import com.huangyuanlove.jandankotlin.httpservice.NewsInterface
 import com.huangyuanlove.jandankotlin.ui.NewsDetailActivity
+import com.huangyuanlove.jandankotlin.ui.RecyclerViewItemClickListener
 import kotlinx.android.synthetic.main.fragment_news.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -56,7 +57,7 @@ class NewsFragment : Fragment() {
         recycler_view.itemAnimator = DefaultItemAnimator()
         recycler_view.addItemDecoration(DividerItemDecoration(context,DividerItemDecoration.VERTICAL))
         adapter = NewsAdapter(activity as Activity, newsz)
-        adapter.onItemClickListener = object : OnItemClickListener{
+        adapter.onItemClickListener = object : RecyclerViewItemClickListener<News> {
             override fun onItemClick(news:News) {
                 val intent  = Intent(context,NewsDetailActivity::class.java)
                 intent.putExtra("news",news)

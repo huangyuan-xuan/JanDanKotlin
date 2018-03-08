@@ -2,6 +2,7 @@ package com.huangyuanlove.jandankotlin.fragment
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
@@ -18,7 +19,11 @@ import com.huangyuanlove.jandankotlin.domain.BoredPic
 import com.huangyuanlove.jandankotlin.domain.RequestResultBean
 import com.huangyuanlove.jandankotlin.fragment.adapter.BoredAdapter
 import com.huangyuanlove.jandankotlin.httpservice.PicsInterface
+import com.huangyuanlove.jandankotlin.ui.PhotoViewActivity
+import com.huangyuanlove.jandankotlin.ui.RecyclerViewItemClickListener
 import kotlinx.android.synthetic.main.fragment_bored_pics.*
+import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.support.v4.intentFor
 import retrofit2.Response
 
 /**
@@ -50,6 +55,13 @@ class BoredPicsFragment : Fragment() {
         recycler_view.layoutManager = linearLayoutManager
         recycler_view.itemAnimator = DefaultItemAnimator()
         adapter = BoredAdapter(activity as Activity, boredPics)
+        adapter.onItemClickListener = object : RecyclerViewItemClickListener<BoredPic> {
+            override fun onItemClick(t: BoredPic) {
+                (activity as Activity).startActivity<PhotoViewActivity>("urls" to t.pics)
+
+            }
+
+        }
         recycler_view.adapter = adapter
         recycler_view.addOnScrollListener(object : RecyclerViewScrollListener(linearLayoutManager) {
             override fun onLoadMore() {
@@ -57,6 +69,7 @@ class BoredPicsFragment : Fragment() {
             }
 
         })
+
 
     }
     private fun loadData(isLoadMore:Boolean){

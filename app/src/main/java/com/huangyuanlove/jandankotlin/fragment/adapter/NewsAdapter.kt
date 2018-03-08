@@ -10,6 +10,7 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.huangyuanlove.jandankotlin.R
 import com.huangyuanlove.jandankotlin.domain.News
+import com.huangyuanlove.jandankotlin.ui.RecyclerViewItemClickListener
 import org.jetbrains.anko.find
 import org.jetbrains.anko.sdk25.coroutines.onClick
 import java.text.SimpleDateFormat
@@ -21,7 +22,7 @@ import java.util.*
  */
 class NewsAdapter(var context: Activity, var data: List<News>) : RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
     private val inflater = LayoutInflater.from(context)
-    var onItemClickListener:OnItemClickListener?=null
+    var onItemClickListener: RecyclerViewItemClickListener<News>?=null
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val news = data[position]
         holder.commentCount.text = "${news.comment_count}评论"
@@ -63,8 +64,5 @@ class NewsAdapter(var context: Activity, var data: List<News>) : RecyclerView.Ad
 
     }
 
-    interface OnItemClickListener {
-        fun onItemClick(news : News)
-    }
 
 }

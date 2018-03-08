@@ -3,6 +3,7 @@ package com.huangyuanlove.jandankotlin.domain
 import android.os.Parcel
 import android.os.Parcelable
 import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * @Describe
@@ -124,7 +125,7 @@ data class BoredPic(
         var vote_negative: String,
         var sub_comment_count: String,
         var text_content: String,
-        var pics: List<String>
+        var pics: ArrayList<String>
 )
 
 
@@ -137,7 +138,7 @@ data class MeiZi(
         var vote_negative: String,
         var sub_comment_count: String,
         var text_content: String,
-        var pics: List<String>
+        var pics: ArrayList<String>
 )
 
 

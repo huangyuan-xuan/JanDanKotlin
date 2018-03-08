@@ -2,6 +2,7 @@ package com.huangyuanlove.jandankotlin.fragment
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
@@ -18,7 +19,11 @@ import com.huangyuanlove.jandankotlin.domain.MeiZi
 import com.huangyuanlove.jandankotlin.domain.RequestResultBean
 import com.huangyuanlove.jandankotlin.fragment.adapter.MeiZiAdapter
 import com.huangyuanlove.jandankotlin.httpservice.GirlPicsInterface
+import com.huangyuanlove.jandankotlin.ui.PhotoViewActivity
+import com.huangyuanlove.jandankotlin.ui.RecyclerViewItemClickListener
 import kotlinx.android.synthetic.main.fragment_meizi.*
+import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.support.v4.intentFor
 import retrofit2.Call
 import retrofit2.Response
 
@@ -48,8 +53,14 @@ class MeiZiFragment : Fragment() {
         swipeRefreshLayout.setOnRefreshListener { loadData(false) }
         val linearLayoutManager = LinearLayoutManager(context)
         recycler_view.layoutManager = linearLayoutManager
-        recycler_view.itemAnimator = DefaultItemAnimator()
+
         adapter = MeiZiAdapter(activity as Activity, meiZis)
+        adapter.onItemClickListener = object : RecyclerViewItemClickListener<MeiZi> {
+            override fun onItemClick(t: MeiZi) {
+                (activity as Activity).startActivity<PhotoViewActivity>("urls" to t.pics)
+            }
+
+        }
         recycler_view.adapter = adapter
         recycler_view.addOnScrollListener(object : RecyclerViewScrollListener(linearLayoutManager) {
             override fun onLoadMore() {

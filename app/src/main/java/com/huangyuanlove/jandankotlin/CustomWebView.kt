@@ -51,14 +51,17 @@ class CustomWebView : WebView {
         webSettings.loadsImagesAutomatically = true //支持自动加载图片
         webSettings.defaultTextEncodingName = "utf-8"//设置编码格式
         webSettings.cacheMode = WebSettings.LOAD_DEFAULT
-        webSettings.defaultFontSize = 24
-        webSettings.standardFontFamily = "cursive"
-        webViewClient = object : WebViewClient() {
-            override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
-                view.loadUrl(url)
-                return true
-            }
-        }
+        webSettings.minimumFontSize = 42
+        webSettings.defaultFontSize = 42
+//        webSettings.defaultFontSize = 24
+//        webSettings.minimumFontSize=24
+//        webSettings.standardFontFamily = "cursive"
+//        webViewClient = object : WebViewClient() {
+//            override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
+//                view.loadUrl(url)
+//                return true
+//            }
+//        }
         //        setWebChromeClient(new WebChromeClient() { });
 
 

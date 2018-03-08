@@ -13,8 +13,10 @@ import com.huangyuanlove.jandankotlin.R
 import com.huangyuanlove.jandankotlin.domain.BoredPic
 import com.huangyuanlove.jandankotlin.domain.MeiZi
 import com.huangyuanlove.jandankotlin.domain.News
+import com.huangyuanlove.jandankotlin.ui.RecyclerViewItemClickListener
 import kotlinx.android.synthetic.main.item_news.view.*
 import org.jetbrains.anko.find
+import org.jetbrains.anko.sdk25.coroutines.onClick
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -24,28 +26,29 @@ import java.util.*
  */
 class MeiZiAdapter(var context: Activity, var data: List<MeiZi>) : RecyclerView.Adapter<MeiZiAdapter.ViewHolder>() {
     private val inflater: LayoutInflater =  LayoutInflater.from(context)
-
+    var onItemClickListener: RecyclerViewItemClickListener<MeiZi>?=null
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val boredPic = data[position]
+        val meiZi = data[position]
         val currentCalendar = Calendar.getInstance()
 
-        if (currentCalendar.get(Calendar.YEAR) == boredPic.comment_date.get(Calendar.YEAR)) {
-            if(currentCalendar.get(Calendar.DAY_OF_YEAR) ==boredPic.comment_date.get(Calendar.DAY_OF_YEAR) ){
-                holder.time.text = SimpleDateFormat("HH:mm").format(boredPic.comment_date.timeInMillis)
+        if (currentCalendar.get(Calendar.YEAR) == meiZi.comment_date.get(Calendar.YEAR)) {
+            if(currentCalendar.get(Calendar.DAY_OF_YEAR) ==meiZi.comment_date.get(Calendar.DAY_OF_YEAR) ){
+                holder.time.text = SimpleDateFormat("HH:mm").format(meiZi.comment_date.timeInMillis)
             }else{
-                holder.time.text = SimpleDateFormat("MM-dd HH:mm").format(boredPic.comment_date.timeInMillis)
+                holder.time.text = SimpleDateFormat("MM-dd HH:mm").format(meiZi.comment_date.timeInMillis)
             }
         } else {
-            holder.time.text = SimpleDateFormat("yyyy-MM-dd HH:mm").format(boredPic.comment_date.timeInMillis)
+            holder.time.text = SimpleDateFormat("yyyy-MM-dd HH:mm").format(meiZi.comment_date.timeInMillis)
         }
 
-        holder.author.text = boredPic.comment_author
-        holder.content.text = boredPic.text_content
-        holder.praise.text = "OO ${boredPic.vote_positive}"
-        holder.oppose.text = "XX ${boredPic.vote_negative}"
-        holder.comment.text = "吐槽${boredPic.sub_comment_count}"
-        Glide.with(holder.view).load(boredPic.pics[0]).into(holder.img)
+        holder.author.text = meiZi.comment_author
+        holder.content.text = meiZi.text_content
+        holder.praise.text = "OO ${meiZi.vote_positive}"
+        holder.oppose.text = "XX ${meiZi.vote_negative}"
+        holder.comment.text = "吐槽${meiZi.sub_comment_count}"
+        Glide.with(holder.view).load(meiZi.pics[0]).into(holder.img)
+        holder.view.onClick { onItemClickListener?.onItemClick(meiZi) }
     }
 
     override fun getItemCount(): Int {

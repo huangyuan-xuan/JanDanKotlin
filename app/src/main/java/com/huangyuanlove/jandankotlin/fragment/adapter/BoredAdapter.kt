@@ -12,8 +12,10 @@ import com.bumptech.glide.Glide
 import com.huangyuanlove.jandankotlin.R
 import com.huangyuanlove.jandankotlin.domain.BoredPic
 import com.huangyuanlove.jandankotlin.domain.News
+import com.huangyuanlove.jandankotlin.ui.RecyclerViewItemClickListener
 import kotlinx.android.synthetic.main.item_news.view.*
 import org.jetbrains.anko.find
+import org.jetbrains.anko.sdk25.coroutines.onClick
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -23,7 +25,7 @@ import java.util.*
  */
 class BoredAdapter(var context: Activity, var data: List<BoredPic>) : RecyclerView.Adapter<BoredAdapter.ViewHolder>() {
     private val inflater: LayoutInflater =  LayoutInflater.from(context)
-
+    var onItemClickListener: RecyclerViewItemClickListener<BoredPic>?=null
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val boredPic = data[position]
@@ -45,6 +47,7 @@ class BoredAdapter(var context: Activity, var data: List<BoredPic>) : RecyclerVi
         holder.oppose.text = "XX ${boredPic.vote_negative}"
         holder.comment.text = "吐槽${boredPic.sub_comment_count}"
         Glide.with(holder.view).load(boredPic.pics[0]).into(holder.img)
+        holder.view.onClick { onItemClickListener?.onItemClick(boredPic) }
     }
 
     override fun getItemCount(): Int {
